@@ -113,9 +113,11 @@ def fsk_decoder(signal, sample_rate, f0, f1, bit_time,
     """
     # Flytt signalet slik at gjennomsnittsverdien blir 0.
     signal = signal - np.mean(signal)
-
     # ===== OPPGAVE: (skriv her) =====
-
+    filtrert = bandpass(signal, sample_rate, f0, f1)
+    (start, slutt) = find_sequence(signal, sample_rate, f0, f1, bit_time, sequence)
+    bits = decode_bits(filtrert, sample_rate, f0, f1, bit_time)
+    return bits
     # TODO: (1) Filtrer signalet. Dere kan bruke bandpass().
 
     # TODO: (2) Finn delen av signalet som inneholder meldingen.
@@ -127,5 +129,3 @@ def fsk_decoder(signal, sample_rate, f0, f1, bit_time,
     # Startsekvensen kan tas med, men telles ikke i message_length.
 
     # ===== SLUTT PÅ OPPGAVEN =====
-
-    return bits

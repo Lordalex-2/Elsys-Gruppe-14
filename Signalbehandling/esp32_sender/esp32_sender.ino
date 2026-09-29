@@ -7,37 +7,22 @@ const int f_0 = 1200;
 const int f_1 = 2200;
 void setup() {
   Serial.begin(115200);
-
-}
-
-void loop() {
-  // put your main code here, to run repeatedly:
-    for (int i = 0; i < strlen(MELDING); i++) {
+  for (int i = 0; i < strlen(MELDING); i++) {
     uint8_t byte = MELDING[i];
     uint8_t bit = 0;
     while (bit < 8) {
       if (byte & 0x01) {
-        bits[i] = true;
-        Serial.print("1");
+        bits[i * 8 + bit] = true;
       } else {
-        bits[i] = false;
-        Serial.print("0");
+        bits[i * 8 + bit] = false;
       }
       bit++;
       byte = byte >> 1;
     }
     Serial.print(" ");
   }
-  Serial.println();
-  for (int i = 0; i < sizeof(bits); i++) {
-    if (bits[i]) {
-      Serial.print("1");
-    }
-    else {
-      Serial.print("0");
-    }
-    
-  }
-  
-  Serial.println();
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
 }

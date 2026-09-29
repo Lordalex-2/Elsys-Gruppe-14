@@ -1,0 +1,10 @@
+build
+mx.scratch
+
+.venv
+.cache/
+build/
+.DS_Store
+.vscode/
+.metadata/
+.settings/

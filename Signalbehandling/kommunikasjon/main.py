@@ -38,8 +38,14 @@ signal = data[:, 0]                 # Hent målingene fra første kanal
 # ===== OPPGAVE: (skriv her) =====
 
 # TODO: (2) Kall fsk_decoder() og lagre resultatet i bits.
-resultat = fsk_decoder(signal, sample_rate, F0, F1, BIT_TIME)
+resultat = fsk_decoder(signal, sample_rate, F0, F1, BIT_TIME, START_SIGNAL)
 print(resultat)
+streng = ""
+for i in range(len(resultat) / 8):
+    tall = (tall << 1) | resultat[i] # skyver bittene en til venstre og ORer med tallet fra resultat
+    bokstav = chr(tall)
+    streng += bokstav
+print(streng)
 
 # Se parameterbeskrivelsene i funksjonen.
 

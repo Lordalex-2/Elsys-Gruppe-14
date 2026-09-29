@@ -8,6 +8,7 @@ const int BUZZER_PIN = 13;
 const float BIT_TIME = 0.2
 const int F0 = 1200;
 const int F1 = 2200;
+int bit = 0;
 
 void setup() {
   Serial.begin(115200);
@@ -18,7 +19,7 @@ void setup() {
   }
   for (int bokstav = 0; bokstav < strlen(MELDING); bokstav++) {
     uint8_t byte = MELDING[bokstav];
-    uint8_t bit = 0;
+    int bit = 0;
     while (bit < 8) {
       if (byte & 0x01) {
         bits[bokstav * 8 + bit + START_SIGNAL_LENGDE] = true;
@@ -33,13 +34,14 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  for (int bit = 0; bit < sizeof(bits); bit++) {
-    if (bits[bit]) {
-      ledcWriteTone(BUZZER_PIN, F1)
+    if (bit < sizeof(bits)) {
+        if (bits[bit]) {
+          ledcWriteTone(BUZZER_PIN, F1)
+        }
+        else {
+          ledcWriteTone(BUZZER_PIN, F0)
+        }
+        bit++;
     }
-    else {
-      ledcWriteTone(BUZZER_PIN, F0)
-    }
-  }
-  delay(BIT_TIME * 1000)
+    delay(BIT_TIME * 1000)
 }

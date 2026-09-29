@@ -115,7 +115,7 @@ def fsk_decoder(signal, sample_rate, f0, f1, bit_time,
     signal = signal - np.mean(signal)
     # ===== OPPGAVE: (skriv her) =====
     filtrert = bandpass(signal, sample_rate, f0, f1)
-    (start, slutt) = find_sequence(filtret, sample_rate, f0, f1, bit_time, start_signal)
+    start, slutt = find_sequence(filtret, sample_rate, f0, f1, bit_time, start_signal)
     bits = decode_bits(filtrert[start:slutt], sample_rate, f0, f1, bit_time)
     return bits
     # TODO: (1) Filtrer signalet. Dere kan bruke bandpass().
